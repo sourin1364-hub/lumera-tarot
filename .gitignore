@@ -1,0 +1,30 @@
+# Python files
+*.py
+__pycache__/
+*.pyc
+
+# Temporary & script files
+*.log
+*.tmp
+list-files.ps1
+fix-names.ps1
+Rename.ps1
+file-list_*.txt
+*.txt
+
+# Hafez files (disabled feature)
+ghazaliat.json
+faal.json
+faal.txt
+*.rb
+data/hafez-full.json
+js/hafez-engine.js
+
+# OS files
+Thumbs.db
+.DS_Store
+desktop.ini
+
+# IDE
+.vscode/
+.idea/

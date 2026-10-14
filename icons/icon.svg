@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="45%" r="70%">
+      <stop offset="0%" stop-color="#1a2150"/>
+      <stop offset="60%" stop-color="#0a0d1f"/>
+      <stop offset="100%" stop-color="#05070f"/>
+    </radialGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ffd98a"/>
+      <stop offset="50%" stop-color="#d9a957"/>
+      <stop offset="100%" stop-color="#b8863b"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ffd98a" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#ffd98a" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="512" height="512" rx="100" fill="url(#bg)"/>
+
+  <!-- Soft glow -->
+  <circle cx="256" cy="256" r="220" fill="url(#glow)"/>
+
+  <!-- Outer gold frame -->
+  <rect x="20" y="20" width="472" height="472" rx="90" fill="none" stroke="url(#gold)" stroke-width="6"/>
+  <rect x="36" y="36" width="440" height="440" rx="80" fill="none" stroke="#b8863b" stroke-width="1.5" opacity="0.6"/>
+
+  <!-- 8-pointed star (shamse) -->
+  <g transform="translate(256,256)" fill="none" stroke="url(#gold)" stroke-width="5" stroke-linejoin="round">
+    <polygon points="0,-140 24,-52 120,-52 48,0 84,88 0,40 -84,88 -48,0 -120,-52 -24,-52"/>
+    <polygon points="0,-106 18,-40 90,-40 36,0 62,66 0,30 -62,66 -36,0 -90,-40 -18,-40" opacity="0.7"/>
+  </g>
+
+  <!-- Center sun -->
+  <circle cx="256" cy="256" r="32" fill="url(#gold)"/>
+  <circle cx="256" cy="256" r="16" fill="#0a0d1f"/>
+
+  <!-- Small orbiting stars -->
+  <g fill="#ffd98a" opacity="0.9">
+    <circle cx="256" cy="86" r="5"/>
+    <circle cx="256" cy="426" r="5"/>
+    <circle cx="86" cy="256" r="5"/>
+    <circle cx="426" cy="256" r="5"/>
+  </g>
+
+  <!-- Brand text -->
+  <text x="256" y="470" text-anchor="middle"
+        font-family="Georgia, serif" font-size="22" letter-spacing="8"
+        fill="#ffd98a" opacity="0.9">LUMERA</text>
+</svg>

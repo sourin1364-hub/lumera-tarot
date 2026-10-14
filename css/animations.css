@@ -1,0 +1,188 @@
+/* =========================================================
+   LUMERA · ANIMATIONS
+   Keyframes and 3D card-flip effects.
+   ========================================================= */
+
+/* ================= KEYFRAMES ================= */
+@keyframes twinkle {
+  0%, 100% { opacity: 0.65; }
+  50%      { opacity: 1; }
+}
+
+@keyframes auroraMove {
+  0%   { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(6%, 4%) scale(1.08); }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes cardShuffle {
+  0%, 100% { transform: rotate(0deg) translateX(0); }
+  25%      { transform: rotate(-4deg) translateX(-6px); }
+  75%      { transform: rotate(4deg) translateX(6px); }
+}
+
+@keyframes floatCard {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-6px); }
+}
+
+@keyframes glowPulse {
+  0%, 100% {
+    box-shadow:
+      0 0 0 0 rgba(255,217,138,0.35),
+      0 20px 40px rgba(0,0,0,0.5);
+  }
+  50% {
+    box-shadow:
+      0 0 0 8px rgba(255,217,138,0),
+      0 22px 44px rgba(0,0,0,0.6);
+  }
+}
+
+@keyframes rotateSlow {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes floatUp {
+  from {
+    transform: translateY(0) scale(0.6);
+    opacity: 0;
+  }
+  15% { opacity: 0.9; }
+  to {
+    transform: translateY(-110vh) scale(1);
+    opacity: 0;
+  }
+}
+
+@keyframes flash {
+  0%   { opacity: 0; }
+  20%  { opacity: 0.9; }
+  100% { opacity: 0; }
+}
+
+/* ================= CARD DEALING ================= */
+.card-wrap.dealing {
+  animation: cardShuffle 0.6s ease both;
+  animation-delay: var(--delay, 0s);
+}
+
+/* ================= CARD HOVER ================= */
+.card-wrap:not(.flipped):hover {
+  transform: translateY(-6px) scale(1.03);
+  filter: drop-shadow(0 0 18px rgba(255,217,138,0.4));
+}
+
+/* ================= CARD FLIPPED GLOW ================= */
+.card-wrap.flipped {
+  animation: glowPulse 3s ease-in-out infinite;
+}
+
+/* ================= REVERSED CARD ================= */
+.card-wrap.reversed .card-face {
+  transform: rotateY(180deg) rotate(180deg);
+}
+
+/* ================= HERO GLOW ================= */
+.hero-title {
+  position: relative;
+  display: inline-block;
+  padding: 4px 8px;
+}
+
+.hero-title::after {
+  content: '';
+  position: absolute;
+  inset: -10% -6%;
+  background: radial-gradient(closest-side, rgba(255,217,138,0.16), transparent 70%);
+  filter: blur(20px);
+  z-index: -1;
+  animation: twinkle 4s ease-in-out infinite;
+}
+
+/* ================= SHIMMER CTA BUTTON ================= */
+.cta {
+  background-size: 200% 100%;
+  background-image: linear-gradient(120deg,
+    var(--gold-1) 0%,
+    #fff2c9 20%,
+    var(--gold-3) 40%,
+    var(--gold-1) 60%,
+    #fff2c9 80%,
+    var(--gold-3) 100%);
+  animation: shimmer 6s linear infinite;
+}
+
+/* ================= READING STAGGER ================= */
+.reading-item {
+  opacity: 0;
+  animation: fadeUp 0.55s ease both;
+  animation-delay: calc(var(--i, 0) * 0.12s + 0.15s);
+}
+
+/* ================= AMBIENT PARTICLES ================= */
+.particle {
+  position: fixed;
+  pointer-events: none;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,217,138,0.9), transparent 70%);
+  animation: floatUp linear infinite;
+  z-index: -1;
+}
+
+/* ================= STORY FLASH ================= */
+.story-flash {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  background: radial-gradient(circle,
+    #fff 0%,
+    rgba(255,217,138,0.6) 30%,
+    transparent 70%);
+  opacity: 0;
+  pointer-events: none;
+  animation: flash 0.7s ease;
+}
+
+/* ================= FLOATING BRAND MARK ================= */
+.brand-mark svg {
+  animation: floatCard 5s ease-in-out infinite;
+}
+
+/* ================= SPREAD CARD HOVER GLOW ================= */
+.spread-card {
+  transition: all 0.35s cubic-bezier(.2,.7,.2,1);
+}
+
+/* ================= TAB TRANSITION ================= */
+.tab {
+  transition: all 0.3s cubic-bezier(.2,.7,.2,1);
+}
+
+/* ================= INPUT FOCUS GLOW ================= */
+.intention input:focus {
+  animation: glowPulse 2s ease-in-out infinite;
+}
+
+/* ================= REDUCED MOTION ================= */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
