@@ -1,0 +1,600 @@
+/* =========================================================
+   LUMERA · NATAL (فال زاد) STYLES
+   Better padding + element SVG support.
+   ========================================================= */
+
+/* ================= BIRTH FORM ================= */
+.natal-form {
+  padding: 32px 32px 28px;
+  border-radius: var(--radius-lg);
+  margin-bottom: 22px;
+  position: relative;
+  overflow: hidden;
+}
+
+.natal-form::before {
+  content: '';
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,217,138,0.12), transparent 70%);
+  pointer-events: none;
+}
+
+.natal-form h2 {
+  margin: 0 0 10px;
+  font-size: 24px;
+  font-weight: 800;
+  background: linear-gradient(90deg, var(--gold-1), var(--gold-3));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.natal-form p {
+  color: var(--ink-dim);
+  font-size: 13.5px;
+  margin: 0 0 26px;
+  line-height: 1.8;
+}
+
+.natal-inputs {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1.4fr;
+  gap: 14px;
+  margin-bottom: 22px;
+}
+
+@media (max-width: 520px) {
+  .natal-inputs {
+    grid-template-columns: 1fr 1fr;
+  }
+  .natal-inputs .natal-input-wrap:last-child {
+    grid-column: 1 / -1;
+  }
+}
+
+.natal-input-wrap {
+  display: flex;
+  flex-direction: column;
+}
+
+.natal-input-wrap label {
+  font-size: 12px;
+  color: var(--gold-2);
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.natal-input-wrap input,
+.natal-input-wrap select {
+  padding: 12px 16px;
+  background: rgba(0,0,0,0.28);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  color: var(--ink);
+  font-family: inherit;
+  font-size: 14.5px;
+  outline: none;
+  transition: border 0.2s, box-shadow 0.2s;
+  text-align: center;
+}
+
+.natal-input-wrap input:focus,
+.natal-input-wrap select:focus {
+  border-color: var(--gold-2);
+  box-shadow: 0 0 0 3px rgba(217,169,87,0.15);
+}
+
+.natal-input-wrap select {
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg width='12' height='8' viewBox='0 0 12 8' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23d9a957' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: left 16px center;
+  padding-left: 38px;
+}
+
+.natal-form-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.natal-form-actions button {
+  flex: 1;
+  min-width: 140px;
+}
+
+/* ================= NATAL RESULT ================= */
+.natal-result {
+  animation: fadeUp 0.6s ease both;
+}
+
+.natal-header {
+  padding: 36px 32px 30px;
+  border-radius: var(--radius-lg);
+  margin-bottom: 20px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.natal-header::before {
+  content: '';
+  position: absolute;
+  top: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,217,138,0.15), transparent 70%);
+  pointer-events: none;
+  animation: floatCard 7s ease-in-out infinite;
+}
+
+.natal-sign {
+  font-size: 13px;
+  color: var(--gold-2);
+  letter-spacing: 3px;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.natal-title {
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--gold-1);
+  margin: 0 0 12px;
+  letter-spacing: -0.3px;
+}
+
+.natal-subtitle {
+  font-size: 13.5px;
+  color: var(--ink-dim);
+  margin: 0 auto;
+  line-height: 1.8;
+  max-width: 560px;
+}
+
+/* ================= ELEMENT BOX ================= */
+.natal-element-box {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 28px 32px;
+  border-radius: var(--radius-lg);
+  margin-bottom: 22px;
+  background: linear-gradient(160deg,
+    rgba(95,224,208,0.08),
+    rgba(255,217,138,0.03) 70%,
+    transparent);
+  border: 1px solid rgba(95,224,208,0.25);
+  animation: fadeUp 0.6s ease both;
+}
+
+@media (max-width: 520px) {
+  .natal-element-box {
+    padding: 22px 20px;
+    gap: 16px;
+  }
+}
+
+.natal-element-icon {
+  font-size: 52px;
+  line-height: 1;
+  flex-shrink: 0;
+  width: 64px;
+  height: 64px;
+  display: grid;
+  place-items: center;
+}
+
+.natal-element-icon svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  filter: drop-shadow(0 0 18px currentColor);
+}
+
+.natal-element-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.natal-element-label {
+  font-size: 12px;
+  color: var(--turq-1);
+  letter-spacing: 3px;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.natal-element-value {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--gold-1);
+  margin-bottom: 8px;
+  letter-spacing: -0.5px;
+}
+
+.natal-element-desc {
+  font-size: 13px;
+  color: var(--ink-dim);
+  line-height: 1.7;
+}
+
+.natal-element-desc strong {
+  color: var(--gold-2);
+}
+
+/* ================= NATAL CARDS GRID ================= */
+.natal-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 18px;
+  margin-bottom: 24px;
+}
+
+@media (max-width: 520px) {
+  .natal-cards {
+    grid-template-columns: 1fr;
+  }
+}
+
+.natal-card {
+  padding: 24px 20px;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(160deg,
+    rgba(255,217,138,0.06),
+    rgba(95,224,208,0.02) 70%,
+    transparent);
+  border: 1px solid var(--line);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s, border-color 0.3s;
+}
+
+.natal-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--gold-2);
+}
+
+.natal-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold-1), transparent);
+}
+
+.natal-card-type {
+  font-size: 11px;
+  color: var(--gold-2);
+  letter-spacing: 2.5px;
+  margin-bottom: 16px;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.natal-card-thumb {
+  width: 110px;
+  aspect-ratio: 3/5;
+  margin: 0 auto 16px;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow:
+    0 12px 32px rgba(0,0,0,0.5),
+    0 0 0 1px rgba(255,217,138,0.3) inset;
+  transition: transform 0.4s;
+}
+
+.natal-card:hover .natal-card-thumb {
+  transform: translateY(-3px) rotate(-2deg);
+}
+
+.natal-card-thumb svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.natal-card-name {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--gold-1);
+  margin: 0 0 8px;
+}
+
+.natal-card-element {
+  font-size: 12px;
+  color: var(--ink-dim);
+  margin-bottom: 12px;
+}
+
+.natal-card-element strong {
+  color: var(--turq-1);
+  font-weight: 700;
+}
+
+.natal-card-desc {
+  font-size: 12.5px;
+  color: var(--ink-dim);
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* ================= ALIGNMENT ================= */
+.natal-alignment {
+  padding: 32px 32px 28px;
+  border-radius: var(--radius-lg);
+  margin-bottom: 22px;
+  position: relative;
+  overflow: hidden;
+  animation: fadeUp 0.7s ease both;
+}
+
+@media (max-width: 520px) {
+  .natal-alignment {
+    padding: 24px 20px;
+  }
+}
+
+.natal-alignment::before {
+  content: '';
+  position: absolute;
+  top: -50px;
+  right: -50px;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.natal-alignment.alignment-perfect {
+  background: linear-gradient(160deg,
+    rgba(95,224,208,0.12),
+    rgba(255,217,138,0.05) 70%,
+    transparent);
+  border: 1px solid rgba(95,224,208,0.4);
+  box-shadow: 0 0 32px rgba(95,224,208,0.15);
+}
+.natal-alignment.alignment-perfect::before {
+  background: radial-gradient(circle, rgba(95,224,208,0.25), transparent 70%);
+}
+
+.natal-alignment.alignment-strong {
+  background: linear-gradient(160deg,
+    rgba(255,217,138,0.1),
+    rgba(95,224,208,0.04) 70%,
+    transparent);
+  border: 1px solid rgba(255,217,138,0.3);
+}
+.natal-alignment.alignment-strong::before {
+  background: radial-gradient(circle, rgba(255,217,138,0.2), transparent 70%);
+}
+
+.natal-alignment.alignment-partial {
+  background: linear-gradient(160deg,
+    rgba(255,217,138,0.06),
+    rgba(217,169,87,0.03) 70%,
+    transparent);
+  border: 1px solid rgba(217,169,87,0.28);
+}
+
+.natal-alignment.alignment-transformative {
+  background: linear-gradient(160deg,
+    rgba(217,169,87,0.08),
+    rgba(138,90,43,0.04) 70%,
+    transparent);
+  border: 1px solid rgba(217,169,87,0.35);
+}
+.natal-alignment.alignment-transformative::before {
+  background: radial-gradient(circle, rgba(217,169,87,0.22), transparent 70%);
+}
+
+.natal-alignment-badge {
+  display: inline-block;
+  font-size: 11px;
+  padding: 5px 14px;
+  border-radius: 20px;
+  margin-bottom: 16px;
+  background: rgba(255,217,138,0.12);
+  color: var(--gold-1);
+  border: 1px solid rgba(255,217,138,0.3);
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.natal-alignment h3 {
+  color: var(--gold-1);
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0 0 18px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(217,169,87,0.2);
+}
+
+.natal-alignment p {
+  font-size: 14px;
+  line-height: 2;
+  color: #d9d3c4;
+  margin: 0 0 12px;
+}
+
+.natal-alignment p:last-child {
+  margin-bottom: 0;
+}
+
+.natal-alignment strong {
+  color: var(--gold-1);
+  font-weight: 700;
+}
+
+/* ================= NATAL SECTIONS ================= */
+.natal-section {
+  padding: 30px 32px 26px;
+  border-radius: var(--radius-lg);
+  margin-bottom: 20px;
+}
+
+@media (max-width: 520px) {
+  .natal-section {
+    padding: 24px 20px;
+  }
+}
+
+.natal-section h3 {
+  color: var(--gold-1);
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0 0 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.natal-section p {
+  font-size: 14px;
+  line-height: 2;
+  color: #d9d3c4;
+  margin: 0 0 14px;
+}
+
+.natal-section p:last-child {
+  margin-bottom: 0;
+}
+
+.natal-section strong {
+  color: var(--gold-1);
+  font-weight: 700;
+}
+
+/* ================= BIRTH INFO BAR ================= */
+.natal-birth-info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 22px;
+  margin-bottom: 20px;
+  border-radius: 14px;
+  background: rgba(255,217,138,0.05);
+  border: 1px solid rgba(217,169,87,0.18);
+  font-size: 13px;
+  color: var(--ink-dim);
+  flex-wrap: wrap;
+}
+
+.natal-birth-info strong {
+  color: var(--gold-1);
+  font-weight: 700;
+}
+
+.natal-birth-info .natal-birth-sep {
+  opacity: 0.4;
+}
+
+/* ================= DAY THEME ================= */
+body.theme-day .natal-form,
+body.theme-day .natal-header,
+body.theme-day .natal-section {
+  background: linear-gradient(180deg,
+    rgba(255,250,235,0.85),
+    rgba(245,232,205,0.7));
+}
+
+body.theme-day .natal-form h2,
+body.theme-day .natal-title,
+body.theme-day .natal-section h3,
+body.theme-day .natal-alignment h3 {
+  color: #8a5a2b;
+  background: none;
+  -webkit-text-fill-color: #8a5a2b;
+}
+
+body.theme-day .natal-form p,
+body.theme-day .natal-subtitle,
+body.theme-day .natal-section p,
+body.theme-day .natal-alignment p {
+  color: #6a4a1e;
+}
+
+body.theme-day .natal-input-wrap label {
+  color: #8a5a2b;
+}
+
+body.theme-day .natal-input-wrap input,
+body.theme-day .natal-input-wrap select {
+  background: rgba(255,255,255,0.7);
+  border-color: rgba(184,134,59,0.35);
+  color: #2a1d0a;
+}
+
+body.theme-day .natal-sign,
+body.theme-day .natal-card-type,
+body.theme-day .natal-alignment-badge {
+  color: #8a5a2b;
+}
+
+body.theme-day .natal-card {
+  background: linear-gradient(160deg,
+    rgba(255,250,235,0.8),
+    rgba(245,232,205,0.6));
+  border-color: rgba(184,134,59,0.3);
+}
+
+body.theme-day .natal-card-name {
+  color: #8a5a2b;
+}
+
+body.theme-day .natal-card-element strong {
+  color: #2aa8a0;
+}
+
+body.theme-day .natal-card-desc {
+  color: #6a4a1e;
+}
+
+body.theme-day .natal-element-box {
+  background: linear-gradient(160deg,
+    rgba(42,168,160,0.1),
+    rgba(184,134,59,0.04) 70%,
+    transparent);
+  border-color: rgba(42,168,160,0.35);
+}
+
+body.theme-day .natal-element-label {
+  color: #2aa8a0;
+}
+
+body.theme-day .natal-element-value {
+  color: #8a5a2b;
+}
+
+body.theme-day .natal-element-desc {
+  color: #6a4a1e;
+}
+
+body.theme-day .natal-birth-info {
+  background: rgba(184,134,59,0.1);
+  border-color: rgba(184,134,59,0.3);
+  color: #6a4a1e;
+}
+
+body.theme-day .natal-birth-info strong {
+  color: #8a5a2b;
+}

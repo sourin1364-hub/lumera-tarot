@@ -1,8 +1,8 @@
 /* =========================================================
-   LUMERA · SERVICE WORKER
-   Caches static assets and card images for offline use.
+   LUMERA · SERVICE WORKER v24
+   Caches static assets, card images, and offline data.
    ========================================================= */
-const CACHE_STATIC = 'lumera-static-v1';
+const CACHE_STATIC = 'lumera-static-v29';
 const CACHE_IMAGES = 'lumera-images-v1';
 
 /* ================= STATIC ASSETS ================= */
@@ -10,12 +10,34 @@ const STATIC_ASSETS = [
   './',
   './index.html',
   './manifest.webmanifest',
+
+  // CSS
   './css/main.css',
   './css/animations.css',
+  './css/profile.css',
+  './css/natal.css',
+  './css/onboarding.css',
+  './css/themes.css',
+
+  // JS
+  './js/avatars.js',
+  './js/onboarding.js',
+  './js/theme-engine.js',
+  './js/bg-animation.js',
   './js/card-art.js',
+  './js/tarot-interpreter.js',
   './js/tarot-engine.js',
+  './js/daily-v2.js',
+  './js/natal.js',
+  './js/user.js',
+  './js/achievements.js',
+  './js/stats.js',
   './js/app.js',
+
+  // Data
   './data/tarot-full.json',
+
+  // Icons
   './icons/icon.svg',
   './icons/icon-192.png',
   './icons/icon-512.png'
@@ -23,24 +45,19 @@ const STATIC_ASSETS = [
 
 /* ================= CARD IMAGES (78 cards + 1 back) ================= */
 const CARD_IDS = [
-  // Major Arcana (22)
   'major-00','major-01','major-02','major-03','major-04','major-05','major-06',
   'major-07','major-08','major-09','major-10','major-11','major-12','major-13',
   'major-14','major-15','major-16','major-17','major-18','major-19','major-20',
   'major-21',
-  // Cups (14)
   'cups-ace','cups-two','cups-three','cups-four','cups-five','cups-six',
   'cups-seven','cups-eight','cups-nine','cups-ten','cups-page','cups-knight',
   'cups-queen','cups-king',
-  // Swords (14)
   'swords-ace','swords-two','swords-three','swords-four','swords-five','swords-six',
   'swords-seven','swords-eight','swords-nine','swords-ten','swords-page','swords-knight',
   'swords-queen','swords-king',
-  // Wands (14)
   'wands-ace','wands-two','wands-three','wands-four','wands-five','wands-six',
   'wands-seven','wands-eight','wands-nine','wands-ten','wands-page','wands-knight',
   'wands-queen','wands-king',
-  // Pentacles (14)
   'pentacles-ace','pentacles-two','pentacles-three','pentacles-four','pentacles-five',
   'pentacles-six','pentacles-seven','pentacles-eight','pentacles-nine','pentacles-ten',
   'pentacles-page','pentacles-knight','pentacles-queen','pentacles-king'

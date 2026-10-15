@@ -3,7 +3,7 @@
    Renders each tarot card with its unique JPG image,
    wrapped in a gilded Persian-arch frame.
    ========================================================= */
-const CardArt = (() => {
+window.CardArt = (() => {
   'use strict';
 
   const GOLD_1 = '#e8c076';

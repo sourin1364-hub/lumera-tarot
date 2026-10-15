@@ -2,7 +2,7 @@
    LUMERA · TAROT ENGINE
    Fair shuffle, spreads, reversed cards, yes/no logic.
    ========================================================= */
-const TarotEngine = (() => {
+window.TarotEngine = (() => {
   'use strict';
 
   let CARDS = [];
@@ -164,10 +164,20 @@ const TarotEngine = (() => {
     return READY;
   }
 
+   /* ================= INTERPRET (Delegates) ================= */
+  function interpret(draw, spreadKey, intention) {
+    if (typeof TarotInterpreter === 'undefined') {
+      console.warn('TarotInterpreter not loaded');
+      return { narrative: '', cards: [] };
+    }
+    return TarotInterpreter.interpret(draw, spreadKey, intention);
+  }
+
   /* ================= PUBLIC API ================= */
   return {
     load,
     draw,
+    interpret,
     getCard,
     count,
     isReady,

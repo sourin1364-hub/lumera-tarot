@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no" />
 <meta name="theme-color" content="#0a0d1f" />
 <meta name="description" content="فال تاروت لومِرا — سفری به درون با کارت‌های تاروت. آفلاین، رایگان و بدون تبلیغ." />
+<meta name="mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 <meta name="apple-mobile-web-app-title" content="لومِرا" />
@@ -21,6 +22,10 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" />
 <link rel="stylesheet" href="css/main.css" />
 <link rel="stylesheet" href="css/animations.css" />
+<link rel="stylesheet" href="css/profile.css" />
+<link rel="stylesheet" href="css/natal.css" />
+<link rel="stylesheet" href="css/onboarding.css" />
+<link rel="stylesheet" href="css/themes.css" />
 </head>
 <body>
 
@@ -66,8 +71,36 @@
     <p class="hero-sub">کارت‌ها را بُر بزن، نیت کن و بگذار لومِرا پرده از رازهایت بردارد.</p>
   </section>
 
+  <nav class="tabs glass" role="tablist">
+    <button class="tab active" data-tab="tarot" role="tab" aria-selected="true">تاروت</button>
+    <button class="tab" data-tab="natal" role="tab" aria-selected="false">فال زاد</button>
+    <button class="tab" data-tab="profile" role="tab" aria-selected="false">پروفایل</button>
+  </nav>
+
   <!-- ===================== TAB: TAROT ===================== -->
   <section id="tarotTab" class="tab-panel">
+
+    <div class="daily-widget glass" id="dailyWidget">
+      <div class="daily-head">
+        <div class="daily-title">✦ کارت امروز</div>
+        <div class="daily-streak" id="dailyStreak">
+          <span class="daily-streak-icon">🔥</span>
+          <span id="dailyStreakNum">0</span>
+          <span>روز پیاپی</span>
+        </div>
+      </div>
+
+      <div class="daily-body" id="dailyBody">
+        <div class="daily-loading">در حال بُر زدن کارت روز...</div>
+      </div>
+
+      <div class="daily-footer">
+        <button class="ghost small" id="dailyOpenBtn">دیدن تعبیر کامل</button>
+        <button class="ghost small" id="dailyNotifyBtn">
+          <span id="dailyNotifyLabel">یادآوری روزانه</span>
+        </button>
+      </div>
+    </div>
 
     <div class="intention glass">
       <label for="intention">نیت خود را در دل یا روی کاغذ بنویس (اختیاری)</label>
@@ -101,11 +134,129 @@
     </section>
   </section>
 
-  <!-- ===================== TAB: HAFEZ (بزودی) ===================== -->
-  <!--
-  فال حافظ در نسخه‌ی بعدی لومِرا فعال خواهد شد.
-  دلیل تأخیر: نیاز به تعبیر اختصاصی برای هر غزل که با نیت کاربر هم‌خوان باشد.
-  -->
+  <!-- ===================== TAB: NATAL (فال زاد) ===================== -->
+  <section id="natalTab" class="tab-panel hidden">
+
+    <div class="natal-form glass" id="natalForm">
+      <h2>✦ فال زاد</h2>
+      <p>تاریخ تولدت رو وارد کن تا کارت زاد تو رو محاسبه کنیم. این کارت، آیینه‌ای از روح تو و مسیر زندگیته.</p>
+
+      <div class="natal-inputs">
+        <div class="natal-input-wrap">
+          <label for="natalDay">روز</label>
+          <input type="number" id="natalDay" min="1" max="31" placeholder="مثلاً ۱۵" />
+        </div>
+        <div class="natal-input-wrap">
+          <label for="natalMonth">ماه</label>
+          <input type="number" id="natalMonth" min="1" max="12" placeholder="مثلاً ۶" />
+        </div>
+        <div class="natal-input-wrap">
+          <label for="natalYear">سال</label>
+          <input type="number" id="natalYear" min="1300" max="1450" placeholder="مثلاً ۱۳۷۰" />
+        </div>
+      </div>
+
+      <div class="natal-form-actions">
+        <button class="cta" id="natalCalcBtn">محاسبه‌ی کارت زاد</button>
+        <button class="ghost" id="natalClearBtn">پاک‌کردن</button>
+      </div>
+    </div>
+
+    <div class="natal-result hidden" id="natalResult"></div>
+
+  </section>
+
+  <!-- ===================== TAB: PROFILE ===================== -->
+  <section id="profileTab" class="tab-panel hidden">
+
+    <div class="profile-header glass" id="profileHeader">
+      <div class="profile-avatar-wrap" id="profileAvatarWrap">
+        <div class="profile-avatar" id="profileAvatar"></div>
+        <div class="profile-avatar-edit">✎</div>
+      </div>
+      <div class="profile-info">
+        <h2 class="profile-name" id="profileName">مهمان لومِرا</h2>
+        <p class="profile-meta" id="profileMeta">سفری تازه در انتظار توست</p>
+      </div>
+      <button class="profile-edit-btn" id="profileEditBtn">ویرایش</button>
+    </div>
+
+    <div class="stats-cards" id="statsCards"></div>
+
+    <div class="profile-section glass">
+      <h3>✦ توزیع دسته‌ها<span class="section-badge">عناصر</span></h3>
+      <div id="donutChart"></div>
+    </div>
+
+    <div class="profile-section glass">
+      <h3>✦ کارت‌های غالب<span class="section-badge">TOP 5</span></h3>
+      <div id="topCards"></div>
+    </div>
+
+    <div class="profile-section glass">
+      <h3>✦ فعالیت ۳۰ روز اخیر<span class="section-badge">آخرین ماه</span></h3>
+      <div id="activityHeatmap"></div>
+    </div>
+
+    <div class="profile-section glass">
+      <h3>✦ دستاوردها<span class="section-badge" id="achievementCount">0/0</span></h3>
+      <div class="achievements-grid" id="achievementsGrid"></div>
+    </div>
+
+    <div class="profile-section glass">
+      <h3>✦ فال‌های اخیر<span class="section-badge" id="historyCount">0</span></h3>
+      <div id="historyList"></div>
+      <div class="cta-row" id="historyActions" style="margin-top:20px;">
+        <button class="ghost small" id="clearHistoryBtn">پاک‌کردن تاریخچه</button>
+      </div>
+    </div>
+
+    <div class="profile-section glass">
+      <h3>✦ تنظیمات</h3>
+
+      <div class="theme-toggle-row">
+        <div>
+          <div class="theme-toggle-label">حالت روز</div>
+          <div class="theme-toggle-desc">تم روشن برای روزهای آفتابی</div>
+        </div>
+        <div class="theme-switch" id="themeSwitch" role="switch" aria-checked="false"></div>
+      </div>
+
+      <!-- Backup Section -->
+      <div class="backup-section">
+        <div class="backup-row">
+          <div class="backup-info">
+            <div class="backup-title">
+              <span class="backup-icon">📤</span>
+              <span>بک‌آپ داده‌ها</span>
+            </div>
+            <div class="backup-desc">همه‌ی اطلاعاتت رو رمزگذاری‌شده دانلود کن</div>
+          </div>
+          <button class="backup-btn" id="backupBtn">دانلود بک‌آپ</button>
+        </div>
+
+        <div class="backup-row">
+          <div class="backup-info">
+            <div class="backup-title">
+              <span class="backup-icon">📥</span>
+              <span>بازیابی داده‌ها</span>
+            </div>
+            <div class="backup-desc">از فایل پشتیبان، اطلاعاتت رو برگردون</div>
+          </div>
+          <button class="backup-btn" id="restoreBtn">انتخاب فایل</button>
+        </div>
+      </div>
+
+      <div class="danger-row">
+        <div>
+          <div class="theme-toggle-label">منطقه‌ی خطر</div>
+          <div class="theme-toggle-desc">پاک‌کردن پروفایل و همه‌ی داده‌ها (غیرقابل بازگشت)</div>
+        </div>
+        <button class="danger-btn" id="resetAllBtn">پاک‌کردن همه</button>
+      </div>
+    </div>
+
+  </section>
 
   <footer class="app-footer">
     <div>ساخته‌شده با نور ✦ <a href="https://instagram.com/lumera.tv" target="_blank" rel="noopener">@lumera.tv</a></div>
@@ -115,8 +266,94 @@
 <canvas id="storyCanvas" width="1080" height="1920" hidden></canvas>
 <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
+<!-- ===================== BACKUP PASSWORD MODAL ===================== -->
+<div class="avatar-modal-overlay hidden" id="backupModal">
+  <div class="avatar-modal glass" style="max-width:440px;">
+    <div class="avatar-modal-head">
+      <h3 class="avatar-modal-title" id="backupModalTitle">پسورد بک‌آپ</h3>
+      <button class="avatar-modal-close" id="backupModalClose" aria-label="بستن">✕</button>
+    </div>
+    <div class="avatar-modal-body">
+      <p class="backup-modal-desc" id="backupModalDesc">یه پسورد قوی (حداقل ۶ کاراکتر) انتخاب کن. با این پسورد، داده‌هات رمزگذاری می‌شن.</p>
+      <input type="password" id="backupPassword" class="profile-name-input" placeholder="پسورد" autocomplete="new-password" />
+      <input type="password" id="backupPasswordConfirm" class="profile-name-input" placeholder="تکرار پسورد" autocomplete="new-password" style="margin-top:10px;" />
+      <div class="backup-modal-error hidden" id="backupModalError"></div>
+      <div class="cta-row" style="margin-top:18px;">
+        <button class="cta" id="backupModalSubmit">تایید</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== RESTORE FILE INPUT (hidden) ===================== -->
+<input type="file" id="restoreFileInput" accept=".lumera" hidden />
+
+<!-- ===================== RESET CONFIRMATION MODAL ===================== -->
+<div class="avatar-modal-overlay hidden" id="resetModal">
+  <div class="avatar-modal glass" style="max-width:440px;">
+    <div class="avatar-modal-head">
+      <h3 class="avatar-modal-title">⚠️ پاک‌کردن همه‌ی داده‌ها</h3>
+      <button class="avatar-modal-close" id="resetModalClose" aria-label="بستن">✕</button>
+    </div>
+    <div class="avatar-modal-body">
+      <p class="backup-modal-desc">
+        این کار <strong>غیرقابل بازگشت</strong> است. همه‌ی اطلاعات (پروفایل، تاریخچه، دستاوردها) پاک می‌شود.
+      </p>
+      <p class="backup-modal-desc" style="margin-top:12px;">
+        برای تأیید، عبارت <strong>«پاک کن»</strong> را تایپ کن:
+      </p>
+      <input type="text" id="resetConfirmInput" class="profile-name-input" placeholder="پاک کن" />
+      <div class="backup-modal-error hidden" id="resetModalError"></div>
+      <div class="cta-row" style="margin-top:18px;">
+        <button class="danger-btn" id="resetModalSubmit" disabled>پاک‌کردن همه‌ی داده‌ها</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== AVATAR PICKER MODAL ===================== -->
+<div class="avatar-modal-overlay hidden" id="avatarModal">
+  <div class="avatar-modal glass">
+    <div class="avatar-modal-head">
+      <h3 class="avatar-modal-title">آواتار خود را انتخاب کن</h3>
+      <button class="avatar-modal-close" id="avatarModalClose" aria-label="بستن">✕</button>
+    </div>
+    <div class="avatar-modal-body">
+      <div class="avatar-grid" id="avatarGrid"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== NAME EDIT MODAL ===================== -->
+<div class="avatar-modal-overlay hidden" id="nameModal">
+  <div class="avatar-modal glass" style="max-width:440px;">
+    <div class="avatar-modal-head">
+      <h3 class="avatar-modal-title">نام خود را بنویس</h3>
+      <button class="avatar-modal-close" id="nameModalClose" aria-label="بستن">✕</button>
+    </div>
+    <div class="avatar-modal-body">
+      <input type="text" id="nameInput" class="profile-name-input" maxlength="30" placeholder="مثلاً: ملکه‌ی نور" />
+      <div class="cta-row" style="margin-top:18px;">
+        <button class="cta" id="nameSaveBtn">ذخیره</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Scripts -->
+<script src="js/avatars.js"></script>
+<script src="js/onboarding.js"></script>
+<script src="js/theme-engine.js"></script>
+<script src="js/bg-animation.js"></script>
 <script src="js/card-art.js"></script>
+<script src="js/tarot-interpreter.js"></script>
 <script src="js/tarot-engine.js"></script>
+<script src="js/daily-v2.js"></script>
+<script src="js/natal.js"></script>
+<script src="js/user.js"></script>
+<script src="js/achievements.js"></script>
+<script src="js/stats.js"></script>
+<script src="js/backup.js"></script>
 <script src="js/app.js"></script>
 </body>
 </html>
