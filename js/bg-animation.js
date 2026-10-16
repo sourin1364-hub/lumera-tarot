@@ -11,6 +11,9 @@ window.LumeraBG = (() => {
   let particles = [];
   let currentElement = null;
   let time = 0;
+  let enabled = true;
+
+  const STORAGE_KEY = 'lumera_bg_anim';
 
   const THEMES = {
     'آب': {
@@ -59,6 +62,22 @@ window.LumeraBG = (() => {
     }
   };
 
+  /* ================= ENABLED STATE ================= */
+  function loadEnabledState() {
+    try {
+      const v = localStorage.getItem(STORAGE_KEY);
+      enabled = v !== '0';
+    } catch (_) {
+      enabled = true;
+    }
+  }
+
+  function saveEnabledState() {
+    try {
+      localStorage.setItem(STORAGE_KEY, enabled ? '1' : '0');
+    } catch (_) {}
+  }
+
   /* ================= SETUP ================= */
   function setup() {
     if (canvas) return;
@@ -97,7 +116,7 @@ window.LumeraBG = (() => {
   }
 
   /* ================= PARTICLES ================= */
-    function createParticles(config) {
+  function createParticles(config) {
     const w = canvas._w || window.innerWidth;
     const h = canvas._h || window.innerHeight;
     particles = [];
@@ -120,11 +139,10 @@ window.LumeraBG = (() => {
   }
 
   /* ================= DRAW ================= */
-    function drawBackground(config) {
+  function drawBackground(config) {
     const w = canvas._w;
     const h = canvas._h;
 
-    // Base gradient — softer
     const grad = ctx.createLinearGradient(0, 0, 0, h);
     grad.addColorStop(0, config.bgTop);
     grad.addColorStop(0.6, config.bgBottom);
@@ -132,7 +150,6 @@ window.LumeraBG = (() => {
     ctx.fillStyle = grad;
     ctx.fillRect(0, 0, w, h);
 
-    // Radial glow at bottom — softer pulse
     const pulse = 0.3 + Math.sin(time * 1.2) * 0.15;
     const radial = ctx.createRadialGradient(w / 2, h + 150, 0, w / 2, h + 150, h * 1.2);
     const waveRGB = config.waveColor.match(/[\d.]+/g);
@@ -145,7 +162,6 @@ window.LumeraBG = (() => {
     ctx.fillStyle = radial;
     ctx.fillRect(0, 0, w, h);
 
-    // Secondary moving glow — subtle
     const xPos = w * (0.5 + Math.sin(time * 0.25) * 0.3);
     const yPos = h * (0.35 + Math.cos(time * 0.35) * 0.1);
     const radial2 = ctx.createRadialGradient(xPos, yPos, 0, xPos, yPos, h * 0.8);
@@ -155,7 +171,7 @@ window.LumeraBG = (() => {
     ctx.fillRect(0, 0, w, h);
   }
 
-    function drawParticles(config) {
+  function drawParticles(config) {
     const w = canvas._w;
     const h = canvas._h;
 
@@ -174,7 +190,6 @@ window.LumeraBG = (() => {
       ctx.globalAlpha = p.opacity;
 
       if (p.shape === 'ember') {
-        // Fire ember — small and glowing
         const grd = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.size * 5);
         grd.addColorStop(0, 'rgba(255,255,255,0.9)');
         grd.addColorStop(0.15, '#ffd98a');
@@ -185,7 +200,6 @@ window.LumeraBG = (() => {
         ctx.arc(p.x, p.y, p.size * 5, 0, Math.PI * 2);
         ctx.fill();
       } else if (p.shape === 'wisp') {
-        // Air wisp — soft cloud
         const grd = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.size);
         grd.addColorStop(0, 'rgba(255,255,255,0.35)');
         grd.addColorStop(0.4, config.particleColor);
@@ -195,7 +209,6 @@ window.LumeraBG = (() => {
         ctx.ellipse(p.x, p.y, p.size, p.size * 0.4, 0, 0, Math.PI * 2);
         ctx.fill();
       } else if (p.shape === 'drop') {
-        // Water drop — soft
         const grd = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.size * 4);
         grd.addColorStop(0, 'rgba(255,255,255,0.7)');
         grd.addColorStop(0.3, '#7ef0e0');
@@ -206,7 +219,6 @@ window.LumeraBG = (() => {
         ctx.arc(p.x, p.y, p.size * 4, 0, Math.PI * 2);
         ctx.fill();
       } else {
-        // Earth dust — soft
         const grd = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.size * 3);
         grd.addColorStop(0, '#fff2c9');
         grd.addColorStop(0.4, config.particleColor);
@@ -224,6 +236,8 @@ window.LumeraBG = (() => {
   /* ================= LOOP ================= */
   function loop() {
     if (!currentElement) return;
+    if (!enabled) return;
+
     const config = THEMES[currentElement];
     if (!config) return;
 
@@ -233,6 +247,21 @@ window.LumeraBG = (() => {
     drawParticles(config);
 
     animId = requestAnimationFrame(loop);
+  }
+
+  /* ================= PAUSE / RESUME ================= */
+  function pause() {
+    if (animId) {
+      cancelAnimationFrame(animId);
+      animId = null;
+    }
+    if (canvas) canvas.style.opacity = '0';
+  }
+
+  function resume() {
+    if (!canvas || !currentElement) return;
+    canvas.style.opacity = '1';
+    if (!animId) loop();
   }
 
   /* ================= PUBLIC ================= */
@@ -256,9 +285,13 @@ window.LumeraBG = (() => {
       createParticles(config);
 
       if (animId) cancelAnimationFrame(animId);
-      loop();
 
-      canvas.style.opacity = '1';
+      if (enabled) {
+        loop();
+        canvas.style.opacity = '1';
+      } else {
+        canvas.style.opacity = '0';
+      }
     }
 
     document.body.classList.remove(
@@ -276,8 +309,31 @@ window.LumeraBG = (() => {
     } catch (_) {}
   }
 
+  /* ================= SET ENABLED ================= */
+  function setEnabled(on) {
+    enabled = !!on;
+    saveEnabledState();
+
+    if (enabled) {
+      resume();
+    } else {
+      pause();
+    }
+  }
+
+  function isEnabled() {
+    return enabled;
+  }
+
+  /* ================= INIT ================= */
+  loadEnabledState();
+
   return {
     apply: apply,
-    applyFromProfile: applyFromProfile
+    applyFromProfile: applyFromProfile,
+    setEnabled: setEnabled,
+    isEnabled: isEnabled,
+    pause: pause,
+    resume: resume
   };
 })();

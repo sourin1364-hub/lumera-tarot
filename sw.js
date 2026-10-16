@@ -1,8 +1,8 @@
 /* =========================================================
-   LUMERA · SERVICE WORKER v24
+   LUMERA · SERVICE WORKER v25
    Caches static assets, card images, and offline data.
    ========================================================= */
-const CACHE_STATIC = 'lumera-static-v29';
+const CACHE_STATIC = 'lumera-static-v30';
 const CACHE_IMAGES = 'lumera-images-v1';
 
 /* ================= STATIC ASSETS ================= */

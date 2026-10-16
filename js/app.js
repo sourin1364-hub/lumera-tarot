@@ -813,6 +813,27 @@
       themeSwitch.addEventListener('click', toggleTheme);
     }
 
+    // ========== Background Animation Toggle ==========
+    const bgAnimSwitch = $('#bgAnimSwitch');
+    if (bgAnimSwitch) {
+      // همگام‌سازی وضعیت اولیه
+      const bgEnabled = window.LumeraBG && typeof window.LumeraBG.isEnabled === 'function'
+        ? window.LumeraBG.isEnabled()
+        : true;
+      bgAnimSwitch.classList.toggle('on', bgEnabled);
+      bgAnimSwitch.setAttribute('aria-checked', String(bgEnabled));
+
+      // با کلیک، وضعیت رو toggle کن
+      bgAnimSwitch.addEventListener('click', () => {
+        if (window.LumeraBG && typeof window.LumeraBG.setEnabled === 'function') {
+          const newState = !window.LumeraBG.isEnabled();
+          window.LumeraBG.setEnabled(newState);
+          bgAnimSwitch.classList.toggle('on', newState);
+          bgAnimSwitch.setAttribute('aria-checked', String(newState));
+        }
+      });
+    }
+
     const clearBtn = $('#clearHistoryBtn');
     if (clearBtn) {
       clearBtn.addEventListener('click', () => {
